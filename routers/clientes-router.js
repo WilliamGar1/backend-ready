@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 //obtener la informacion de un cliente
 router.get('/:idCliente', function (req, res){
-    categoria.find({_id: mongoose.Types.ObjectId(req.params.idCliente)})
+    clientes.find({_id: mongoose.Types.ObjectId(req.params.idCliente)})
     .then(result=>{
         res.send(result[0]);
         res.end();
