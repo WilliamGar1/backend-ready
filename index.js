@@ -11,7 +11,7 @@ var categoriasRouter = require('./routers/categorias-router');
 
 
 var app = express();
-//app.use(express.static("public"));
+app.use(express.static("public"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,8 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Rutas
 app.use('/clientes', clientesRouter);
-/*app.use('/categorias',categoriasRouter);
-app.use('/motoristas',motoristasRouter);
+app.use('/categorias',categoriasRouter);
+/*app.use('/motoristas',motoristasRouter);
 app.use('/ordenes',ordenesRouter);
 app.use('/administrador',administradorRouter);*/
 
