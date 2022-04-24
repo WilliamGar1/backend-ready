@@ -17,6 +17,23 @@ router.get('/:idCliente', function (req, res){
     });
 });
 
+//Guardar Cliente
+router.post('/', function(req,res){
+    let c = new clientes({
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+        telefono: req.body.telefono,
+        contrasena: req.body.contrasena
+    });
+    c.save().then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    })
+});
+
 
 
 module.exports = router;
