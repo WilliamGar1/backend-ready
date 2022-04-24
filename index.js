@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Rutas
 app.use('/clientes', clientesRouter);
 app.use('/categorias',categoriasRouter);
-/*app.use('/motoristas',motoristasRouter);
-app.use('/ordenes',ordenesRouter);
-app.use('/administrador',administradorRouter);*/
+app.use('/orders',ordenesRouter);
+app.use('/motoristas',motoristasRouter);
+/*app.use('/administrador',administradorRouter);*/
 
 app.listen(3300, ()=>{
     console.log('Servidor del backend levantado en 3300');
