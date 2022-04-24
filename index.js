@@ -19,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Rutas
 app.use('/clientes', clientesRouter);
-/*app.use('/categorias',categoriasRouter);
+app.use('/orders',ordenesRouter);
+/*
 app.use('/motoristas',motoristasRouter);
-app.use('/ordenes',ordenesRouter);
+app.use('/categorias',categoriasRouter);
 app.use('/administrador',administradorRouter);*/
 
 app.listen(3300, ()=>{

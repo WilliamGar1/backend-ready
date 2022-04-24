@@ -1,0 +1,227 @@
+use readyExpress;
+
+db.createCollection('clientes');
+db.createCollection('categorias');
+db.createCollection('motoristas');
+db.createCollection('ordenes');
+db.createCollection('administradores');
+
+
+db.clientes.insertMany([{
+	"_id":ObjectId(),
+	"nombre":"Juan Perez",
+	"correo":"prueba@gmail.com",
+	"contrasena":"holaMundo/",
+	"telefono":"5565-8985"
+},
+{
+	"_id":ObjectId(),
+	"nombre":"José Perez" ,
+	"correo":"prueba2@gmail.com",
+	"contrasena":"holaTierra/",
+	"telefono":"5565-2585"
+}
+])
+
+db.categorias.insertMany([{
+	"_id":ObjectId(),
+	"nombreCategoria":"Restaurantes",
+	"empresas":[{
+		"_id":ObjectId(),
+		"nombre": "Burger King",
+		"gerente":"José Santos",
+		"ubicacion":"Tegucigalpa Barrio San José",
+		"descripcion":"Las Mejores Hamburguesas del País",
+		"calificacion":"5",
+		"logoEmpresa":"",
+		"productos":[{
+			"_id":ObjectId(),
+			"nombre":"Producto#1",
+			"precio":"100",
+			"descripcion":"Hamburguesa doble carne de res con lechuga, aguacate, cebolla y aderezos de la casa",
+			"imagenProducto":""
+		},{
+			"_id":ObjectId(),
+			"nombre":"Producto#2",
+			"precio":"200",
+			"descripcion":"Hamburguesa triple carne de pollo con lechuga, aguacate, cebolla y aderezos de la casa",
+			"imagenProducto":""
+		}]
+	},{
+		"_id":ObjectId(),
+		"nombre": "Pizza Hut",
+		"gerente":"María Fernández",
+		"ubicacion":"Tegucigalpa Barrio El centro",
+		"descripcion":"Las Mejores Pizzas del País",
+		"calificacion":"4",
+		"logoEmpresa":"",
+		"productos":[{
+			"_id":ObjectId(),
+			"nombre":"Producto#1 Pizza",
+			"precio":"100",
+			"descripcion":"Pizza cuatro estaciones con orilla de queso Tamaño gigante",
+			"imagenProducto":""
+		},{
+			"_id":ObjectId(),
+			"nombre":"Producto#2 Pizza",
+			"precio":"200",
+			"descripcion":"Pizza supersuprema con orilla de queso Tamaño gigante",
+			"imagenProducto":""
+		}]
+	}]
+},{
+	"_id":ObjectId(),
+	"nombreCategoria":"Farmacias",
+	"empresas":[{
+		"_id":ObjectId(),
+		"nombre": "El Ahorro",
+		"gerente":"Juan Martinez",
+		"ubicacion":"Tegucigalpa Colonia Cerro Grande",
+		"descripcion":"Los mejores precios de medicamentos los encuentras aquí ",
+		"calificacion":"4",
+		"logoEmpresa":"",
+		"productos":[{
+			"_id":ObjectId(),
+			"nombre":"Producto#1 ahorro",
+			"precio":"100",
+			"descripcion":"Caja de Vitaflenaco de 100g contiene 100 unidades",
+			"imagenProducto":""
+		},{
+			"_id":ObjectId(),
+			"nombre":"Producto#2 ahorro",
+			"precio":"500",
+			"descripcion":"Caja de Acetaminofén MK 500mg Contiene 50 unidades",
+			"imagenProducto":""
+		}]
+	},{
+		"_id":ObjectId(),
+		"nombre": "Farmacias Kielsa",
+		"gerente":"María Chavez",
+		"ubicacion":"Tegucigalpa Colonia EL Hato",
+		"descripcion":"Las marcas en cuanto a medicamentos las encuentras aquí",
+		"calificacion":"5",
+		"logoEmpresa":"",
+		"productos":[{
+			"_id":ObjectId(),
+			"nombre":"Producto#1 Kielsa",
+			"precio":"300",
+			"descripcion":"Caja de Vitaflenaco de 100g contiene 100 unidades",
+			"imagenProducto":""
+		},{
+			"_id":ObjectId(),
+			"nombre":"Producto#2 Kielsa",
+			"precio":"200",
+			"descripcion":"Caja de Acetaminofén MK 500mg Contiene 50 unidades",
+			"imagenProducto":""
+		}]
+	}]
+}])
+
+db.motoristas.insertMany([{
+	"_id":ObjectId(),
+	"dni":"0319-1978-00568",
+	"nombre":"Cyntia Reyes",
+	"celular":"5689-9874",
+	"fechaNacimiento":"24/03/1978",
+	"placa":"HAB2658",
+	"correo":"cyntia@ejemplo.com",
+	"contrasena":"123456dads/",
+	"estado":"Activo"	
+},{
+	"_id":ObjectId(),
+	"dni":"0102-1987-00568",
+	"nombre":"Gerson Martínez",
+	"celular":"9785-9874",
+	"fechaNacimiento":"24/12/1987",
+	"placa":"HSD3658",
+	"correo":"gerson@ejemplo.com",
+	"contrasena":"123456dsds/",
+	"estado":"Sin Admitir"	
+},{
+	"_id":ObjectId(),
+	"dni":"0506-1980-00568",
+	"nombre":"Juan Reyes",
+	"celular":"8754-9874",
+	"fechaNacimiento":"27/02/1980",
+	"placa":"HOI3658",
+	"correo":"juan@ejemplo.com",
+	"contrasena":"123456wewe/",
+	"estado":"Activo"	
+},{
+	"_id":ObjectId(),
+	"dni":"0810-1992-00568",
+	"nombre":"Laura Ochoa",
+	"celular":"9785-9874",
+	"fechaNacimiento":"04/08/1992",
+	"placa":"AFB2658",
+	"correo":"laura@ejemplo.com",
+	"contrasena":"123456ertr/",
+	"estado":"Sin Admitir"	
+}
+])
+
+db.administradores.insertMany([{
+		"_id":ObjectId(),
+		"nombre":"Jesús",
+		"apellido":"Posada",
+		"fechaNacimiento":"22/08/1988",
+		"correo":"admin@readyexpress.com",
+		"contrasena":"Jesus123/"
+}])
+
+db.ordenes.insertMany([{
+	"_id": ObjectId(),
+	"cliente":{
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d51"),
+		"nombre": "Cyntia Reyes",
+		"celular": "5689-9874"
+	} ,
+	"motorista": "Sin asignar",
+	"empresa": {
+		"nombre": "Burger King",
+		"ubicacion": "Tegucigalpa Barrio San José",
+	},
+	"productos":[{
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d45"),
+		"nombre": "Producto#1",
+		"precio": 100,
+		"cantidad": 2
+	}],
+	"direccion": {
+		"nombre": "Los Geranios",
+		"latitud": 14.4488185,
+		"longitud": -87.6285088
+	},
+    "precio_envio": 45,
+    "estado": "pendiente"
+},{
+	"_id": ObjectId(),
+	"cliente": {
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d42"),
+		"nombre": "Jose Perez",
+		"celular": "5565-2585"
+	},
+	"motorista": "Sin asignar",
+	"empresa": {
+		"nombre": "El Ahorro",
+		"ubicacion": "Tegucigalpa Colonia Cerro Grande"
+	},
+	"productos":[{
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d4c"),
+		"nombre": "Producto#1 ahorro",
+		"precio": 100,
+		"cantidad": 1
+	},{
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d4d"),
+		"nombre": "Producto#2 ahorro",
+		"precio": 500,
+		"cantidad": 2
+	}],
+	"direccion": {
+		"nombre": "Col. Palmiras",
+		"latitud": 14.44379,
+		"longitud": -87.6240887
+	},
+    "precio_envio": 60,
+    "estado": "pendiente"
+}])
