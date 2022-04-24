@@ -17,12 +17,24 @@ router.get('/', function (req, res){
     });
 });
 
+//Obtener Empresas
+router.get('/empresas', function (req, res){
+    categorias.find({},{empresas:true})
+    .then(result=>{
+        res.send(result);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
 
 
 
 //Obtener una categoria
 router.get('/:idCategoria', function (req, res){
-    categorias.find({_id: mongoose.Types.ObjectId(req.params.idCategoria)})
+    categorias.find({_id: mongoose.Types.ObjectId(req.params.idCategoria)},{"empresas":true})
     .then(result=>{
         res.send(result[0]);
         res.end();
@@ -52,12 +64,11 @@ router.get('/:idCategoria/empresas/:idEmpresa',function (req, res){
 });
 
 //Obtener detalles de un Producto
-router.get('/:idCategoria/empresas/:idEmpresa/productos/:idProducto',function (req, res){
+router.get('/:idEmpresa/productos/:idProducto',function (req, res){
     categorias.find(
         {
-            _id: req.params.idCategoria,
             "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa),
-            "empresas.productos._id" : mongoose.Types.ObjectId(req.params.idProducto)
+            "productos._id" : mongoose.Types.ObjectId(req.params.idProducto)
 
         },{"empresas.productos.$":true})
     .then(result=>{
@@ -74,8 +85,7 @@ router.get('/:idCategoria/empresas/:idEmpresa/productos/:idProducto',function (r
 router.post('/:idCategoria/empresas', imagen.uploadimagenes.fields([{name:'logoEmpresa', maxCount:1}]), function (req, res){
     categorias.updateOne(
         {
-            _id:mongoose.Types.ObjectId(req.params.idCategoria),
-            "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
+            _id:mongoose.Types.ObjectId(req.params.idCategoria)
         },
         {
             $push:{
@@ -100,22 +110,51 @@ router.post('/:idCategoria/empresas', imagen.uploadimagenes.fields([{name:'logoE
     });
 });
 
-//Modificar Datos de una empresa
-router.post('/empresas/:idEmpresa/modificar', function (req, res){
+
+//Agregar un Nuevo Producto
+router.post('/:idEmpresa/productoNuevo', imagen.uploadimagenes.fields([{name:'imagenProducto', maxCount:1}]), function (req, res){
     categorias.updateOne(
         {
             "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
         },
         {
-            $set:{
-                "empresas.$":{
+            $push:{
+                "empresas.$.productos":{
+                    _id:mongoose.Types.ObjectId(),
                     nombre:req.body.nombre,
-                    gerente:req.body.gerente,
-                    ubicacion:req.body.ubicacion,
+                    precio:req.body.precio,
                     descripcion: req.body.descripcion,
-                    calificacion: req.body.calificacion
+                    imagenProducto:`${req.files.imagenProducto[0].filename}`,
                 }
             }
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+
+
+//Modificar Datos de una empresa
+router.put('/empresas/:idEmpresa/modificar', function (req, res){
+
+    let e = {
+        nombre:req.body.nombre,
+        gerente:req.body.gerente,
+        ubicacion:req.body.ubicacion,
+        descripcion: req.body.descripcion,
+        calificacion: req.body.calificacion
+    }
+    categorias.updateOne(
+        {
+            "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
+        },
+        {
+                $set:{"empresas":e}
         }
     ).then(result=>{
         res.send(result);
