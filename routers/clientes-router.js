@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var clientes = require('../models/clientes');
 var mongoose = require('mongoose');
-
+var jwt = require('jsonwebtoken');
 
 //obtener la informacion de un cliente
 router.get('/:idCliente', function (req, res){
@@ -32,6 +32,18 @@ router.post('/', function(req,res){
         res.send(error);
         res.end();
     })
+});
+
+//Login
+router.post('/login', async function(req,res){
+    const {correo, contrasena} = req.body;
+    const Cliente = await clientes.findOne({correo},{});
+    if (!Cliente) return res.status(401).send('Correo incorrecto');
+    if (Cliente.contrasena !== contrasena) return res.status(401).send('Contraseña Incorrecta');
+
+    const token = jwt.sign({_id:Cliente._id}, 'clientekey');
+    const clienteID = Cliente._id;
+    return res.status(200).json({token, clienteID});
 });
 
 
