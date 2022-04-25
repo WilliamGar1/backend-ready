@@ -46,10 +46,9 @@ router.get('/:idCategoria', function (req, res){
 });
 
 //Obtener los productos de una empresa
-router.get('/:idCategoria/empresas/:idEmpresa',function (req, res){
+router.get('/empresas/:idEmpresa',function (req, res){
     categorias.find(
         {
-            _id: req.params.idCategoria,
             "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
         },
         {"empresas.$":true})
@@ -64,10 +63,9 @@ router.get('/:idCategoria/empresas/:idEmpresa',function (req, res){
 });
 
 //Obtener detalles de un Producto
-router.get('/:idEmpresa/productos/:idProducto',function (req, res){
+router.get('/productos/:idProducto',function (req, res){
     categorias.find(
         {
-            "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa),
             "productos._id" : mongoose.Types.ObjectId(req.params.idProducto)
 
         },{"empresas.productos.$":true})
