@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 router.get('/:idCliente', function (req, res){
     clientes.find({_id: mongoose.Types.ObjectId(req.params.idCliente)})
     .then(result=>{
-        res.send(result[0]);
+        res.send(result);
         res.end();
     })
     .catch(error=>{
@@ -46,6 +46,28 @@ router.post('/login', async function(req,res){
     return res.status(200).json({token, clienteID});
 });
 
-
+//Actualizar Cliente
+router.put('/:idCliente/editar', function (req, res){
+       
+    clientes.updateOne(
+        {
+            _id: mongoose.Types.ObjectId(req.params.idCliente)
+        },
+        {
+                $set:{
+                    nombre:req.body.nombre,
+                    correo:req.body.correo,
+                    telefono:req.body.telefono,
+                    contrasena:req.body.contrasena
+                }
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
 
 module.exports = router;
