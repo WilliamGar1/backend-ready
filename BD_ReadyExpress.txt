@@ -172,11 +172,10 @@ db.administradores.insertMany([{
 db.ordenes.insertMany([{
 	"_id": ObjectId(),
 	"cliente":{
-		"_id": ObjectId("62646ebfd8a3c5502f8c0d51"),
-		"nombre": "Cyntia Reyes",
-		"celular": "5689-9874"
+		"_id": ObjectId("62646ebfd8a3c5502f8c0d41"),
+		"nombre": "Juan Perez",
+		"celular": "5565-8985"
 	} ,
-	"motorista": "Sin asignar",
 	"empresa": {
 		"nombre": "Burger King",
 		"ubicacion": "Tegucigalpa Barrio San José",
@@ -201,7 +200,6 @@ db.ordenes.insertMany([{
 		"nombre": "Jose Perez",
 		"celular": "5565-2585"
 	},
-	"motorista": "Sin asignar",
 	"empresa": {
 		"nombre": "El Ahorro",
 		"ubicacion": "Tegucigalpa Colonia Cerro Grande"

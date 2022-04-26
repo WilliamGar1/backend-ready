@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var esquema = mongoose.Schema({
 	cliente: Object,
-	motorista: String,
+	id_motorista: Object,
 	empresa: Object,
 	productos: Array,
 	direccion: Object,

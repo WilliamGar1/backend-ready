@@ -16,7 +16,27 @@ router.get('/', (req, res) => {
     .catch(e => {
         res.send(e);
         res.end();
-    })
+    });
 });
+
+router.put('/:id/taken', (req, res) => {
+    ordenes.updateOne({
+        _id: mongoose.Types.ObjectId(req.params.id)
+    },
+    {
+        $set: {
+            id_motorista: mongoose.Types.ObjectId(req.body._id),
+            estado: req.body.estado,
+        }
+    })
+    .then(() => {
+        res.send({update: true, msg:'Se ha tomado la orden'});
+        res.end();
+    })
+    .catch(() => {
+        res.send({update: false, msg: 'Error al tomar la orden'});
+        res.end();
+    });
+})
 
 module.exports = router;
