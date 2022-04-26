@@ -4,7 +4,7 @@ var esquema = mongoose.Schema({
 	cliente: Object,
 	id_motorista: Object,
 	empresa: Object,
-	productos: Array,
+	productos:Object,
 	direccion: Object,
     precio_envio: Number,
     estado: String
