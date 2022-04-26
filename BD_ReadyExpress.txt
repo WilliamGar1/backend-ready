@@ -187,7 +187,7 @@ db.ordenes.insertMany([{
 		"cantidad": 2
 	}],
 	"direccion": {
-		"nombre": "Los Geranios",
+		"referencia": "Los Geranios",
 		"latitud": 14.4488185,
 		"longitud": -87.6285088
 	},
