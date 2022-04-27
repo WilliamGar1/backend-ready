@@ -19,7 +19,7 @@ router.get('/', function (req, res){
 
 //Obtener Empresas
 router.get('/empresas', function (req, res){
-    categorias.find({},{empresas:true})
+    categorias.find({},{empresas:true,nombreCategoria:true})
     .then(result=>{
         res.send(result);
         res.end();
