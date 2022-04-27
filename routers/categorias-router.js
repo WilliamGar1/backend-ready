@@ -206,5 +206,4 @@ router.delete('/:idEmpresa/eliminar', function (req, res){
 });
 
 
-
 module.exports = router;
