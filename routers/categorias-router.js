@@ -19,7 +19,7 @@ router.get('/', function (req, res){
 
 //Obtener Empresas
 router.get('/empresas', function (req, res){
-    categorias.find({},{empresas:true})
+    categorias.find({},{empresas:true,nombreCategoria:true})
     .then(result=>{
         res.send(result);
         res.end();
@@ -159,6 +159,7 @@ router.post('/:idEmpresa/productoNuevo', imagen.uploadimagenes.fields([{name:'im
 router.put('/empresas/:idEmpresa/modificar', function (req, res){
 
     let e = {
+        _id: mongoose.Types.ObjectId(req.params.idEmpresa),
         nombre:req.body.nombre,
         gerente:req.body.gerente,
         ubicacion:req.body.ubicacion,
@@ -170,7 +171,30 @@ router.put('/empresas/:idEmpresa/modificar', function (req, res){
             "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
         },
         {
-                $set:{"empresas":e}
+                $set:{"empresas.$":e}
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+
+//Eliminar una Empresa
+router.delete('/:idEmpresa/eliminar', function (req, res){
+    categorias.updateOne(
+        {
+            "empresas._id" : mongoose.Types.ObjectId(req.params.idEmpresa)
+        },
+        {
+                $pull:{
+                    empresas:{
+                                _id:mongoose.Types.ObjectId(req.params.idEmpresa)
+                            }
+                        }
         }
     ).then(result=>{
         res.send(result);
