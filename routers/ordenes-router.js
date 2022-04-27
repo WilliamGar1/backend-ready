@@ -29,6 +29,7 @@ router.put('/:id/taken', (req, res) => {
         $set: {
             id_motorista: mongoose.Types.ObjectId(req.body._id),
             estado: req.body.estado,
+            fecha: req.body.fecha
         }
     })
     .then(() => {
@@ -40,6 +41,26 @@ router.put('/:id/taken', (req, res) => {
         res.end();
     });
 });
+
+router.put('/:id/update', (req, res) => {
+    ordenes.updateOne({
+        _id: mongoose.Types.ObjectId(req.params.id)
+    },
+    {
+        $set: {
+            estado: req.body.estado,
+        }
+    })
+    .then(() => {
+        res.send({update: true, msg:'Se ha actualizado el estado de la orden'});
+        res.end();
+    })
+    .catch(() => {
+        res.send({update: false, msg: 'Error al actualizar la orden'});
+        res.end();
+    });
+})
+
 //Nueva Orden
 router.post('/nueva', function(req,res){
     let orden = new ordenes({
@@ -60,8 +81,6 @@ router.post('/nueva', function(req,res){
 });
 
 
-
-
 //obtener una orden en especifico
 router.get('/:id', (req, res) => {
     ordenes.find({
@@ -69,6 +88,24 @@ router.get('/:id', (req, res) => {
     })
     .then(data => {
         res.send(data[0]);
+        res.end();
+    })
+    .catch(e => {
+        res.send(e);
+        res.end();
+    });
+});
+
+
+router.get('/:id/driver', (req, res) => {
+    ordenes.find({
+        id_motorista: mongoose.Types.ObjectId(req.params.id)
+    },
+    {
+        _id: true, empresa: true, fecha: true, estado: true
+    })
+    .then(data => {
+        res.send(data);
         res.end();
     })
     .catch(e => {

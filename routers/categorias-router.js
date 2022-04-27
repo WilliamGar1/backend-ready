@@ -32,7 +32,7 @@ router.get('/empresas', function (req, res){
 
 
 
-//Obtener una categoria
+//Obtener las empresas de una categoria
 router.get('/:idCategoria', function (req, res){
     categorias.find({_id: mongoose.Types.ObjectId(req.params.idCategoria)},{"empresas":true})
     .then(result=>{
@@ -62,15 +62,33 @@ router.get('/empresas/:idEmpresa',function (req, res){
     });
 });
 
-//Obtener detalles de un Producto
-router.get('/productos/:idProducto',function (req, res){
+//Obtener los productos de una empresa
+router.get('/empresas/:empresa/productos' , (req, res) => {
     categorias.find(
         {
-            "productos._id" : mongoose.Types.ObjectId(req.params.idProducto)
-
-        },{"empresas.productos.$":true})
+            "empresas.nombre": req.params.empresa
+        },
+        {_id: false, "empresas.productos._id": true, "empresas.productos.imagenProducto.$": true})
     .then(result=>{
-        res.send(result[0]);
+        res.send(result[0].empresas[0].productos);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+//Obtener detalles de un Producto
+router.get('/productos/:id', (req, res) => {
+    console.log('entro');
+    categorias.find(
+        {
+            "empresas.productos._id" : mongoose.Types.ObjectId(req.params.id)
+
+        },{_id: false, "empresas.productos._id": true, "empresas.productos.imagenProducto.$": true})
+    .then(result => {
+        res.send(result[0].empresas[0].productos);
         res.end();
     })
     .catch(error=>{
