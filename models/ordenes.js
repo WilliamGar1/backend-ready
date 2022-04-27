@@ -7,7 +7,8 @@ var esquema = mongoose.Schema({
 	productos:Object,
 	direccion: Object,
     precio_envio: Number,
-    estado: String
+    estado: String,
+	fecha: String
 });
 
 module.exports = mongoose.model('ordenes', esquema);
