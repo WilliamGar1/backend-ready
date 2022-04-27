@@ -181,7 +181,7 @@ db.ordenes.insertMany([{
 		"ubicacion": "Tegucigalpa Barrio San José",
 	},
 	"productos":[{
-		"_id": ObjectId("62646ebfd8a3c5502f8c0d45"),
+		"_id": ObjectId("62661e5d007306b6edcacdb2"),
 		"nombre": "Producto#1",
 		"precio": 100,
 		"cantidad": 2
@@ -205,18 +205,18 @@ db.ordenes.insertMany([{
 		"ubicacion": "Tegucigalpa Colonia Cerro Grande"
 	},
 	"productos":[{
-		"_id": ObjectId("62646ebfd8a3c5502f8c0d4c"),
+		"_id": ObjectId("62661e5d007306b6edcacdb9"),
 		"nombre": "Producto#1 ahorro",
 		"precio": 100,
 		"cantidad": 1
 	},{
-		"_id": ObjectId("62646ebfd8a3c5502f8c0d4d"),
+		"_id": ObjectId("62661e5d007306b6edcacdba"),
 		"nombre": "Producto#2 ahorro",
 		"precio": 500,
 		"cantidad": 2
 	}],
 	"direccion": {
-		"nombre": "Col. Palmiras",
+		"referencia": "Col. Palmiras",
 		"latitud": 14.44379,
 		"longitud": -87.6240887
 	},
