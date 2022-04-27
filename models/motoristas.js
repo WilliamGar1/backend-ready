@@ -9,7 +9,6 @@ var esquema = mongoose.Schema({
     correo: String,
     contrasena: String,
     estado: String
-
 });
 
 module.exports = mongoose.model('motoristas', esquema);
