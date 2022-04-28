@@ -7,7 +7,9 @@ var jwt = require('jsonwebtoken');
 
 //Obtener todos los motoristas
 router.get('/', (req, res) => {
-    motoristas.find({})
+    motoristas.find({estado: 'Sin Admitir'}, {
+        correo: false, contrasena: false, estado: false
+    })
         .then(data => {
             res.send(data);
             res.end();
@@ -74,6 +76,26 @@ router.post('/nuevo', (req, res) => {
         res.end();
     }).catch(error => {
         res.send({error, save: false});
+        res.end();
+    });
+});
+
+
+//Actualizar el estado de un motorista
+router.put('/:id/update', (req, res) => {
+    motoristas.updateOne({
+        _id: mongoose.Types.ObjectId(req.params.id)
+    },{
+        $set: {
+            estado: req.body.state
+        }
+    })
+    .then(() => {
+        res.send({update: true, msg:'Se ha actualizado el estado del motorista'});
+        res.end();
+    })
+    .catch(error => {
+        res.send(error);
         res.end();
     });
 });
