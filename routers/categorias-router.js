@@ -17,6 +17,45 @@ router.get('/', function (req, res){
     });
 });
 
+//Obtener Categorias con algunos datos
+router.get('/some', (req, res) => {
+    categorias.find(
+        {},
+        {
+            empresas: false
+        }
+    )
+    .then(result => {
+        res.send(result);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+//Guardar una categoria
+router.post('/nueva', imagen.uploadimagenes.fields([{name:'imagenCategoria', maxCount:1}]), (req, res) => {
+
+    let c = new categorias({
+        nombreCategoria: req.body.nombreCategoria,
+        imagenCategoria: `${req.files.imagenCategoria[0].filename}`,
+        empresas: []
+    })
+
+    c.save()
+    .then(() => {
+        result = { msg: 'Categoria insertada', save: true };
+        res.send(result);
+        res.end();
+    })
+    .catch(error => {
+        res.send({error, save: false});
+        res.end();
+    });
+});
+
 //Obtener Empresas
 router.get('/empresas', function (req, res){
     categorias.find({},{empresas:true,nombreCategoria:true})

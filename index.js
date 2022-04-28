@@ -22,7 +22,9 @@ app.use('/clientes', clientesRouter);
 app.use('/categorias',categoriasRouter);
 app.use('/orders',ordenesRouter);
 app.use('/motoristas',motoristasRouter);
-/*app.use('/administrador',administradorRouter);*/
+app.use('/administrador',administradorRouter);
+
+
 
 app.listen(3300, ()=>{
     console.log('Servidor del backend levantado en 3300');
